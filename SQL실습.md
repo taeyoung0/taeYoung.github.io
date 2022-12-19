@@ -61,22 +61,65 @@
   -논리 연산자:  AND, OR, NOT
   -SQL 연산자: ||, BETWEEN a AND b, IN(LIST), LIKE'비교 문자열, IS NULL
 
-  ->산술 연산자
+   * 산술 연산자
    -NUMBER와 DATE 자료형에 대해 적용
    EX) SELECT PLAYER_NAME
        FROM PLAYER
        WHERE ( (HEIGHT-100) * 0.9 - WEIGHT) > 0 ;
   
-  ->비교 연산자
+   * 비교 연산자
    -모든 자료형에 대해 적용
    -문자열의 크기 비교는 사전 순으로 수행 됨
    -EX) '01' < '02' < '1' < '11' < '2'
    -NULL에는 비교 연산자는 사용 불가
 
-   ->논리 연산자
+   * 논리 연산자
     -EX) SELECT PLAYER_NAME, POSITION, HEIGHT FROM PLAYER
          WHERE NOT(POSITION = 'GK' AND HEIGHT > 180);
          = NOT 연산자가 괄호안의 AND를 만나게 되면 AND는 OR로 바뀌게 된다
          -> SELECT PLAYER_NAME, POSITION, HEIGHT FROM PLAYER
             WHERE NOT(POSITION = 'GK') OR NOT(HEIGHT > 180);
-            
+  
+   * SQL 연산자
+   -합성(연결) 연산자 문자열과 문자열을 연결함
+   -방법1: CONCAT(str1, str2)
+   -방법2: str1 || str2
+   -EX) SELECT PLAYER_NAME, HEIGHT || 'CM' AS "선수 신장"
+        FROM PLAYER;
+   
+   -BETWEEN
+   ->EX) SELECT PLAYER_NAME 선수이름, POSTION 포지션, HEIGHT 키
+         FROM PLAYER
+         WHERE HEGIHT BETWEEN 170 AND 180;
+   
+   -NOT BETWEEN
+   ->EX) SELECT PLAYER_NAME 선수이름, POSTION 포지션, HEIGHT 키
+         FROM PLAYER
+         WHERE HEGIHT NOT BETWEEN 170 NOT 180; 
+   
+   -IN(LIST)
+   ->EX) SELECT PLAYER_NAME 선수이름, TEAM_ID, POSTION
+         FROM PLAYER
+         WHERE (TEAM_ID, POSITION) IN ( ('K04', 'GK'), ('K06', 'MF')) ;
+   
+   -NOT IN
+   ->EX) SELECT PLAYER_NAME 선수이름, TEAM_ID, POSTION
+         FROM PLAYER
+         WHERE (TEAM_ID, POSITION) NOT IN ( ('K04', 'GK'), ('K06', 'MF')) ;
+   
+  - LIKE
+  ->문자열 비교 연산
+  ->와일드 카드 사용가능 ('%' 임의의 문자 N개 / '_' 임의의 문자 1개)
+
+  -ROWNUM (TOP N개의 레코드 반환)
+  -> ROWNUM 사용자가 아닌 시스템이 관리하는 Pseudo Column
+  -> 채번, 출력 개수 지정 등에 활용 가능
+  ->EX) SELECT PLAYER_NAME, ROWNUM
+        FROM PLAYER;
+  ->테이블 내의 UNIQUE한 값 설정에도 사용 가능
+  ->ROWNUM을 이용하여 ID필드 생성
+  ->UPDATE 테이블명 SET 칼럼명 = ROWNUM;
+  
+
+
+   
