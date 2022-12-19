@@ -48,5 +48,35 @@
            SELECT PLAYER_NAME, HEIGHT
       FROM PLAYER
       ORDER BY 2;
-      ..
       
+1.7 WHERE 절
+  -특정조건을 만족하는 데이터를 한정하기 위해 사용
+  -SELECT ~ FROM ~ WHERE ~ 형태로 사용
+  EX) SELECT PLAYER_ID, POSITION
+      FROM PLAYER
+      WHERE POSITION = 'GK'
+
+  -산술 연산자: +, -, *, /
+  -비교 연산자: =, <>, <, >, <=, >=
+  -논리 연산자:  AND, OR, NOT
+  -SQL 연산자: ||, BETWEEN a AND b, IN(LIST), LIKE'비교 문자열, IS NULL
+
+  ->산술 연산자
+   -NUMBER와 DATE 자료형에 대해 적용
+   EX) SELECT PLAYER_NAME
+       FROM PLAYER
+       WHERE ( (HEIGHT-100) * 0.9 - WEIGHT) > 0 ;
+  
+  ->비교 연산자
+   -모든 자료형에 대해 적용
+   -문자열의 크기 비교는 사전 순으로 수행 됨
+   -EX) '01' < '02' < '1' < '11' < '2'
+   -NULL에는 비교 연산자는 사용 불가
+
+   ->논리 연산자
+    -EX) SELECT PLAYER_NAME, POSITION, HEIGHT FROM PLAYER
+         WHERE NOT(POSITION = 'GK' AND HEIGHT > 180);
+         = NOT 연산자가 괄호안의 AND를 만나게 되면 AND는 OR로 바뀌게 된다
+         -> SELECT PLAYER_NAME, POSITION, HEIGHT FROM PLAYER
+            WHERE NOT(POSITION = 'GK') OR NOT(HEIGHT > 180);
+            
